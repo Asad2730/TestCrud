@@ -14,23 +14,24 @@ const createWindow = () => {
       },
     })
     
-    const goServer = spawn(path.join(__dirname, './src/go/main.exe')) // path to your Go executable
 
-    goServer.stdout.on('data', (data) => {
-      console.log(`stdout: ${data}`);
-    });
-  
-    goServer.stderr.on('data', (data) => {
-      console.error(`stderr: ${data}`);
-    });
-  
-    goServer.on('close', (code) => {
-      console.log(`child process exited with code ${code}`);
-    });
-  
+      const goServer = spawn('./src/go/employee.exe') 
+
+      goServer.stdout.on('data', (data) => {
+        console.log(`stdout: ${data}`);
+      });
+    
+      goServer.stderr.on('data', (data) => {
+        console.error(`stderr: ${data}`);
+      });
+    
+      goServer.on('close', (code) => {
+        console.log(`child process exited with code ${code}`);
+      });
+
     win.loadFile('./src/electron/pages/login.html')
     win.webContents.openDevTools()
-
+    
   }
 
 
@@ -65,3 +66,5 @@ const createWindow = () => {
       console.error('Error during login:', error.message);
     }
   });
+
+

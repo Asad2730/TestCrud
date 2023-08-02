@@ -1,0 +1,15 @@
+{
+  "name": "TestCrud",
+  "version": "1.0.0",
+  "main": "./src/electron/main.js",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^25.3.2"
+  },
+  "scripts": {
+    "start": "electron ."
+  },
+  "dependencies": {
+    "axios": "^1.4.0"
+  }
+}

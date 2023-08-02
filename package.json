@@ -4,12 +4,26 @@
   "main": "./src/electron/main.js",
   "license": "MIT",
   "devDependencies": {
-    "electron": "^25.3.2"
+    "electron": "^25.3.2",
+    "electron-builder": "^24.6.3"
   },
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "dist": "electron-builder"
+
   },
   "dependencies": {
     "axios": "^1.4.0"
-  }
+   
+  },
+  "mac": {
+    "target": "dmg"
+  },
+  "win": {
+    "target": "nsis"
+  },
+  "files": [
+    "./src/electron/**/*",
+    "./src/go/main"
+  ]
 }

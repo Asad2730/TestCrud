@@ -1,5 +1,7 @@
-const { app, BrowserWindow,ipcMain } = require('electron')
+const { app, BrowserWindow, ipcMain } = require('electron');
 const { login,create } = require('./api_handling/handleApi')
+const path = require('path')
+const { spawn } = require('child_process')
 
 
 const createWindow = () => {
@@ -11,6 +13,20 @@ const createWindow = () => {
         contextIsolation: false,
       },
     })
+    
+    const goServer = spawn(path.join(__dirname, './src/go/main.exe')) // path to your Go executable
+
+    goServer.stdout.on('data', (data) => {
+      console.log(`stdout: ${data}`);
+    });
+  
+    goServer.stderr.on('data', (data) => {
+      console.error(`stderr: ${data}`);
+    });
+  
+    goServer.on('close', (code) => {
+      console.log(`child process exited with code ${code}`);
+    });
   
     win.loadFile('./src/electron/pages/login.html')
     win.webContents.openDevTools()
@@ -18,9 +34,12 @@ const createWindow = () => {
   }
 
 
+
+
   app.whenReady().then(() => {
-    createWindow()
-  })
+  
+    createWindow();
+  });
 
 
   // Listen for the 'login-api' event from the renderer process
